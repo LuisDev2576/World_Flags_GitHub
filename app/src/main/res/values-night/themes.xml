@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.WorldFlags" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#07213C</item>
+        <item name="android:navigationBarColor">#07213C</item>
+        <item name="android:background">#07213C</item>
+    </style>
+</resources>
