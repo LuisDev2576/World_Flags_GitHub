@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.proyect.worldflags.ui.navigation.Routes
 import com.proyect.worldflags.ui.presentation.countriesHome.CountryListHomeViewModel
 
 @Composable
@@ -34,6 +35,7 @@ fun CountryList(
                 capital = country.capital ?: "No especificado",
                 onclick = {
                     focusManager.clearFocus()
+                    navController.navigate(Routes.CountryDetailScreen.withArgs(country.id))
                 },
                 modifier = Modifier.fillMaxWidth(),
             )

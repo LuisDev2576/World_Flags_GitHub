@@ -6,6 +6,7 @@ import com.proyect.worldflags.data.mappers.toCountryPreview
 import com.proyect.flagy.data.remote.CountriesApi
 import com.proyect.worldflags.domain.repository.CountryRepository
 import com.proyect.worldflags.data.local.AppDatabase
+import com.proyect.worldflags.domain.model.Country
 import com.proyect.worldflags.domain.model.CountryPreview
 import com.proyect.worldflags.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -68,6 +69,15 @@ class CountryRepositoryImpl @Inject constructor(
 
 
 
+    }
+
+    override suspend fun getCountryById(id: String): Country? {
+        val countryEntity = appDatabase.countryDao().getCountryById(id)
+        return countryEntity?.toCountry()
+    }
+
+    override suspend fun getCountriesByFifaCodes(fifaCodes: List<String>): List<CountryPreview> {
+        return appDatabase.countryDao().getCountriesByFifaCodes(fifaCodes)
     }
 
 }

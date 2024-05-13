@@ -7,4 +7,6 @@ import com.proyect.worldflags.util.Resource
 
 interface CountryRepository {
     suspend fun getAllCountriesPreviews(forceFetchFromRemote: Boolean): Flow<Resource<List<CountryPreview>>>
+    suspend fun getCountryById(id: String): Country?
+    suspend fun getCountriesByFifaCodes(fifaCodes: List<String>): List<CountryPreview>
 }
