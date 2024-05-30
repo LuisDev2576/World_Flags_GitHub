@@ -3,7 +3,7 @@ package com.proyect.worldflags.data.repository
 import com.proyect.worldflags.data.mappers.toCountry
 import com.proyect.worldflags.data.mappers.toCountryEntity
 import com.proyect.worldflags.data.mappers.toCountryPreview
-import com.proyect.flagy.data.remote.CountriesApi
+import com.proyect.worldflags.data.remote.CountriesApi
 import com.proyect.worldflags.domain.repository.CountryRepository
 import com.proyect.worldflags.data.local.AppDatabase
 import com.proyect.worldflags.domain.model.Country

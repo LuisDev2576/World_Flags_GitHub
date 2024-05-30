@@ -5,7 +5,7 @@ import androidx.room.Room
 import coil.ImageLoader
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.proyect.flagy.data.remote.CountriesApi
+import com.proyect.worldflags.data.remote.CountriesApi
 import com.proyect.worldflags.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides

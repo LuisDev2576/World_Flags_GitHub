@@ -37,7 +37,7 @@ class CountryListHomeViewModel @Inject constructor(
                 when (result) {
                     is Resource.Error -> {
                         _countriesPreviewsHomeListState.update {
-                            it.copy(isLoading = false)
+                            result.message?.let { it1 -> it.copy(error = it1, isLoading = false) }!!
                         }
                     }
 
@@ -46,6 +46,8 @@ class CountryListHomeViewModel @Inject constructor(
                             _countriesPreviewsHomeListState.update {
                                 it.copy(
                                     countriesList = (countriesPreviewsHomeListState.value.countriesList + countriesPreviewsList.shuffled()).distinct(),
+                                    isLoading = false,
+                                    error = ""
                                 )
                             }
                         }
@@ -63,6 +65,7 @@ class CountryListHomeViewModel @Inject constructor(
 
     data class CountriesPreviewsHomeListState(
         val isLoading: Boolean = false,
+        val error: String = "",
         val countriesList: List<CountryPreview> = emptyList(),
     )
 }

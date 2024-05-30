@@ -1,4 +1,4 @@
-package com.proyect.flagy.data.remote
+package com.proyect.worldflags.data.remote
 
 import com.proyect.worldflags.data.remote.response.CountryResponse
 import retrofit2.http.GET
