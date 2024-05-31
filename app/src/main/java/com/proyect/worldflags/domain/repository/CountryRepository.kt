@@ -9,4 +9,6 @@ interface CountryRepository {
     suspend fun getAllCountriesPreviews(forceFetchFromRemote: Boolean): Flow<Resource<List<CountryPreview>>>
     suspend fun getCountryById(id: String): Country?
     suspend fun getCountriesByFifaCodes(fifaCodes: List<String>): List<CountryPreview>
+    suspend fun getLocalCountries(): List<CountryPreview>
+    suspend fun fetchRemoteCountries(): Resource<List<CountryPreview>>
 }

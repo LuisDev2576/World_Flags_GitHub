@@ -1,20 +1,24 @@
 package com.proyect.worldflags.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import coil.ImageLoader
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.proyect.worldflags.data.remote.CountriesApi
 import com.proyect.worldflags.data.local.AppDatabase
+import com.proyect.worldflags.util.NetworkUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -39,6 +43,8 @@ object AppModule {
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
@@ -71,5 +77,13 @@ object AppModule {
         ).fallbackToDestructiveMigration()
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context = context
+
+    @Provides
+    @Singleton
+    fun provideNetworkUtil(context: Context): NetworkUtil = NetworkUtil(context)
 
 }

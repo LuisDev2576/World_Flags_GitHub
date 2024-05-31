@@ -51,7 +51,7 @@ fun CountryListHomeScreen(
         LogoImage(imageState)
         imageState.painter?.let {
             SearchBar(searchText = searchText, onValueChange = { searchText = it })
-            CountryList(navController = navController, countriesListState = countriesListState, searchText = searchText)
+            CountryList(navController = navController, countriesListState = countriesListState, searchText = searchText, refresh = {viewModel.getCountries(true)})
         }
     }
 
