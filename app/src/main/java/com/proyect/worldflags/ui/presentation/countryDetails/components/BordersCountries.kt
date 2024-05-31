@@ -13,7 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.proyect.worldflags.domain.model.CountryPreview
-import com.proyect.worldflags.ui.navigation.Routes
+import com.proyect.worldflags.ui.navigation.CountryDetails
 
 @Composable
 fun BorderCountries(
@@ -23,12 +23,12 @@ fun BorderCountries(
     Text(text = "Países en frontera:", fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier, color = MaterialTheme.colorScheme.onBackground)
 
     LazyVerticalGrid(columns = GridCells.Fixed(5)){
-        items(borderCountries){
+        items(borderCountries){ country ->
             BorderCountryItem(
-                name = it.commonName,
-                flag = it.pngFlagUrl,
+                name = country.commonName,
+                flag = country.pngFlagUrl,
                 onclick = {
-                    navController.navigate(Routes.CountryDetailScreen.withArgs(it.id))
+                    navController.navigate(CountryDetails(country.id))
                 },
                 modifier = Modifier.padding(end = 8.dp)
             )

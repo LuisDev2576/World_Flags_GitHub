@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.proyect.worldflags.ui.navigation.Routes
+import com.proyect.worldflags.ui.navigation.CountriesHome
 import com.proyect.worldflags.ui.presentation.countryDetails.components.BorderCountries
 import com.proyect.worldflags.ui.presentation.countryDetails.components.FlagImage
 import com.proyect.worldflags.ui.presentation.countryDetails.components.ItemDetails
@@ -32,7 +32,7 @@ fun CountryDetailsScreen(
         is CountryDetailsViewModel.CountryDetailState.Success -> {
 
             Scaffold(
-                topBar = { MyTopAppBar(onclick = { navController.navigate(Routes.CountryListHomeScreen.routes) }, countryName = state.country.commonName) },
+                topBar = { MyTopAppBar(onclick = { navController.navigate(CountriesHome) }, countryName = state.country.commonName) },
 
                 content = {
                     Column(modifier = Modifier.padding(it).padding(horizontal = 16.dp)) {

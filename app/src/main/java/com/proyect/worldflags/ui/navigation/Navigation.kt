@@ -17,22 +17,14 @@ fun Navigation(){
 
     NavHost(
         navController = navHostController,
-        startDestination = Routes.CountryListHomeScreen.routes
+        startDestination = CountriesHome
     ) {
-
-        composable(Routes.CountryListHomeScreen.routes,){
+        composable<CountriesHome>{
             CountryListHomeScreen(navController = navHostController)
         }
 
-        composable(
-            Routes.CountryDetailScreen.routes + "/{countryId}",
-            arguments = listOf(
-                navArgument("countryId") {
-                    type = NavType.StringType
-                }
-            )
-        ) {
-            CountryDetailsScreen(navHostController)
+        composable<CountryDetails> {
+            CountryDetailsScreen(navController = navHostController)
         }
     }
 }
