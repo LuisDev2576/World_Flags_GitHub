@@ -1,5 +1,8 @@
 package com.proyect.worldflags.ui.presentation.countriesHome
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
@@ -25,10 +28,12 @@ import com.proyect.worldflags.ui.presentation.countriesHome.components.LogoImage
 import com.proyect.worldflags.ui.presentation.countriesHome.components.SearchBar
 import com.proyect.worldflags.R
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CountryListHomeScreen(
+fun SharedTransitionScope.CountryListHomeScreen(
     navController: NavHostController,
     viewModel: CountryListHomeViewModel = hiltViewModel(),
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     var searchText by rememberSaveable { mutableStateOf("") }
     val countriesListState = viewModel.countriesPreviewsHomeListState.collectAsState().value
@@ -51,7 +56,15 @@ fun CountryListHomeScreen(
         LogoImage(imageState)
         imageState.painter?.let {
             SearchBar(searchText = searchText, onValueChange = { searchText = it })
-            CountryList(navController = navController, countriesListState = countriesListState, searchText = searchText, refresh = {viewModel.getCountries(true)})
+            CountryList(
+                navController = navController,
+                countriesListState = countriesListState,
+                searchText = searchText,
+                animatedVisibilityScope = animatedVisibilityScope,
+                refresh = {
+                    viewModel.getCountries(true)
+                }
+            )
         }
     }
 

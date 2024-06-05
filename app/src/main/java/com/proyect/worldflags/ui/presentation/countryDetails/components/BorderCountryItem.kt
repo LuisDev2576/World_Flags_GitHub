@@ -1,5 +1,9 @@
 package com.proyect.worldflags.ui.presentation.countryDetails.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,12 +25,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun BorderCountryItem(
+fun SharedTransitionScope.BorderCountryItem(
     flag: String,
     name: String,
     onclick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
     Column(
         modifier = modifier
@@ -42,9 +48,15 @@ fun BorderCountryItem(
             contentScale = ContentScale.FillHeight,
             filterQuality = FilterQuality.Medium,
             modifier = Modifier
+                .sharedElement(
+                    state = rememberSharedContentState(key = "countryFlag:/$flag"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _,_->
+                        tween(1000)
+                    }
+                )
                 .clip(RoundedCornerShape(10.dp))
                 .size(40.dp)
-            ,
         )
 
         Spacer(modifier = Modifier.width(16.dp))

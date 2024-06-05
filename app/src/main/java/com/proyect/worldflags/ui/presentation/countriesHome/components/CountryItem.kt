@@ -1,5 +1,9 @@
 package com.proyect.worldflags.ui.presentation.countriesHome.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,13 +29,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CountryListItem(
+fun SharedTransitionScope.CountryListItem(
     flag: String,
     name: String,
     capital: String,
     onclick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
     val context = LocalContext.current
     Row(
@@ -48,10 +54,16 @@ fun CountryListItem(
             filterQuality = FilterQuality.Medium,
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
+                .sharedElement(
+                    state = rememberSharedContentState(key = "countryFlag:/$flag"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _,_->
+                        tween(1000)
+                    }
+                )
+                .size(60.dp)
                 .border(1.dp, MaterialTheme.colorScheme.surface, RoundedCornerShape(10.dp))
                 .clip(RoundedCornerShape(10.dp))
-                .background(MaterialTheme.colorScheme.surface)
-                .size(60.dp)
         )
 
 
@@ -62,7 +74,15 @@ fun CountryListItem(
             Text(
                 text = name,
                 fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "countryName:/$name"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _,_->
+                            tween(1000)
+                        }
+                    )
             )
             Text(text = capital, color = Color.Gray)
         }

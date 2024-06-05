@@ -1,5 +1,9 @@
 package com.proyect.worldflags.ui.presentation.countryDetails.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +19,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun FlagImage(
+fun SharedTransitionScope.FlagImage(
     contentDescription: String,
     image: Any?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
     AsyncImage(
         model = image,
@@ -27,11 +33,17 @@ fun FlagImage(
         contentScale = ContentScale.Crop,
         filterQuality = FilterQuality.High,
         modifier = modifier
-            .border(1.dp, MaterialTheme.colorScheme.surface, RoundedCornerShape(10.dp))
-            .clip(RoundedCornerShape(10.dp))
-            .background(MaterialTheme.colorScheme.surface)
+            .sharedElement(
+                state = rememberSharedContentState(key = "countryFlag:/$image"),
+                animatedVisibilityScope = animatedVisibilityScope,
+                boundsTransform = { _,_->
+                    tween(1000)
+                }
+            )
             .fillMaxWidth()
-            .heightIn(max = 250.dp),
+            .heightIn(max = 250.dp)
+            .border(1.dp, MaterialTheme.colorScheme.surface, RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(10.dp)),
         alignment = Alignment.Center,
     )
 }
