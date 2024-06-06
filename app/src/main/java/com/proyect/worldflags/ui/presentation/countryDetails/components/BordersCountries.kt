@@ -1,5 +1,8 @@
 package com.proyect.worldflags.ui.presentation.countryDetails.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -15,10 +18,12 @@ import androidx.navigation.NavHostController
 import com.proyect.worldflags.domain.model.CountryPreview
 import com.proyect.worldflags.ui.navigation.CountryDetails
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun BorderCountries(
+fun SharedTransitionScope.BorderCountries(
     borderCountries:  List<CountryPreview>,
-    navController: NavHostController
+    navController: NavHostController,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
     Text(text = "Países en frontera:", fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier, color = MaterialTheme.colorScheme.onBackground)
 
@@ -30,7 +35,8 @@ fun BorderCountries(
                 onclick = {
                     navController.navigate(CountryDetails(country.id))
                 },
-                modifier = Modifier.padding(end = 8.dp)
+                modifier = Modifier.padding(end = 8.dp),
+                animatedVisibilityScope = animatedVisibilityScope
             )
         }
     }

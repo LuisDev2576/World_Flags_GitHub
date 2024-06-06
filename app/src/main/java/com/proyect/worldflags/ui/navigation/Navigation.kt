@@ -1,5 +1,7 @@
 package com.proyect.worldflags.ui.navigation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,22 +11,31 @@ import androidx.navigation.navArgument
 import com.proyect.worldflags.ui.presentation.countriesHome.CountryListHomeScreen
 import com.proyect.worldflags.ui.presentation.countryDetails.CountryDetailsScreen
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun Navigation(){
 
+    SharedTransitionLayout {
+        val navHostController = rememberNavController()
 
-    val navHostController = rememberNavController()
+        NavHost(
+            navController = navHostController,
+            startDestination = CountriesHome
+        ) {
+            composable<CountriesHome>{
+                CountryListHomeScreen(
+                    navController = navHostController,
+                    animatedVisibilityScope = this
+                )
+            }
 
-    NavHost(
-        navController = navHostController,
-        startDestination = CountriesHome
-    ) {
-        composable<CountriesHome>{
-            CountryListHomeScreen(navController = navHostController)
+            composable<CountryDetails> {
+                CountryDetailsScreen(
+                    navController = navHostController,
+                    animatedVisibilityScope = this
+                )
+            }
         }
 
-        composable<CountryDetails> {
-            CountryDetailsScreen(navController = navHostController)
-        }
     }
 }

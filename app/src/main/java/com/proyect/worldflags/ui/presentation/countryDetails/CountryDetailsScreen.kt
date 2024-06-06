@@ -1,5 +1,8 @@
 package com.proyect.worldflags.ui.presentation.countryDetails
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +22,12 @@ import com.proyect.worldflags.ui.presentation.countryDetails.components.FlagImag
 import com.proyect.worldflags.ui.presentation.countryDetails.components.ItemDetails
 import com.proyect.worldflags.ui.presentation.countryDetails.components.MyTopAppBar
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CountryDetailsScreen(
+fun SharedTransitionScope.CountryDetailsScreen(
     navController: NavHostController,
     viewModel: CountryDetailsViewModel = hiltViewModel(),
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     val state = viewModel.countryDetailState.collectAsState().value
 
@@ -32,13 +37,13 @@ fun CountryDetailsScreen(
         is CountryDetailsViewModel.CountryDetailState.Success -> {
 
             Scaffold(
-                topBar = { MyTopAppBar(onclick = { navController.navigate(CountriesHome) }, countryName = state.country.commonName) },
+                topBar = { MyTopAppBar(onclick = { navController.navigate(CountriesHome) }, countryName = state.country.commonName, animatedVisibilityScope = animatedVisibilityScope) },
 
                 content = {
                     Column(modifier = Modifier.padding(it).padding(horizontal = 16.dp)) {
-                        FlagImage(contentDescription = state.country.commonName, image = state.country.pngFlagUrl)
+                        FlagImage(contentDescription = state.country.commonName, image = state.country.pngFlagUrl, animatedVisibilityScope = animatedVisibilityScope)
                         ItemDetails(country = state.country)
-                        BorderCountries(borderCountries = state.borderCountries, navController = navController)
+                        BorderCountries(borderCountries = state.borderCountries, navController = navController, animatedVisibilityScope = animatedVisibilityScope)
                     }
                 }
             )

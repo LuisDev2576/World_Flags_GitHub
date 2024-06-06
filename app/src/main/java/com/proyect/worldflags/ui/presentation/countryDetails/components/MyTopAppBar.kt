@@ -1,5 +1,9 @@
 package com.proyect.worldflags.ui.presentation.countryDetails.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -14,12 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun MyTopAppBar(
+fun SharedTransitionScope.MyTopAppBar(
     onclick: () -> Unit,
     countryName: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
     CenterAlignedTopAppBar(
         navigationIcon = {
@@ -40,6 +45,13 @@ fun MyTopAppBar(
                 fontSize = 18.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = modifier
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "countryName:/$countryName"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _,_->
+                            tween(1000)
+                        }
+                    )
             )
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

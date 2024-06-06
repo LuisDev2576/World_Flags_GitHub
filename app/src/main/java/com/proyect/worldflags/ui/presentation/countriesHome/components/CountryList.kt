@@ -1,5 +1,8 @@
 package com.proyect.worldflags.ui.presentation.countriesHome.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -37,11 +40,13 @@ import com.proyect.worldflags.R
 import com.proyect.worldflags.ui.navigation.CountryDetails
 import com.proyect.worldflags.ui.presentation.countriesHome.CountryListHomeViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CountryList(
+fun SharedTransitionScope.CountryList(
     navController: NavHostController,
     countriesListState: CountryListHomeViewModel.CountriesPreviewsHomeListState,
     searchText: String,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     refresh: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
@@ -85,7 +90,8 @@ fun CountryList(
                             focusManager.clearFocus()
                             navController.navigate(CountryDetails(country.id))
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
             }
