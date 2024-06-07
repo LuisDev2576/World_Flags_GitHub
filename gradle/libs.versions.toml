@@ -15,6 +15,7 @@ junitVersion = "1.1.5"
 lifecycleRuntimeKtx = "2.7.0"
 loggingInterceptor = "4.10.0"
 materialIconsExtended = "1.6.7"
+multidex = "2.0.1"
 navigationCompose = "2.8.0-beta02"
 okhttp = "4.11.0"
 retrofit = "2.9.0"
@@ -31,6 +32,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-material3 = { module = "androidx.compose.material3:material3" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-ui = { module = "androidx.compose.ui:ui" }
 androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }

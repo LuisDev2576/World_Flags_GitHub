@@ -21,6 +21,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -97,4 +99,7 @@ dependencies {
 
     // Extended Icons
     implementation(libs.androidx.material.icons.extended)
+
+    // Multidex
+    implementation (libs.androidx.multidex)
 }
