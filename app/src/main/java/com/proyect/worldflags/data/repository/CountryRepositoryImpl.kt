@@ -1,5 +1,7 @@
 package com.proyect.worldflags.data.repository
 
+import android.content.Context
+import com.proyect.worldflags.R
 import com.proyect.worldflags.data.mappers.toCountry
 import com.proyect.worldflags.data.mappers.toCountryEntity
 import com.proyect.worldflags.data.mappers.toCountryPreview
@@ -10,6 +12,7 @@ import com.proyect.worldflags.domain.model.Country
 import com.proyect.worldflags.domain.model.CountryPreview
 import com.proyect.worldflags.util.NetworkUtil
 import com.proyect.worldflags.util.Resource
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,7 +20,8 @@ import javax.inject.Inject
 class CountryRepositoryImpl @Inject constructor(
     private val countriesApi: CountriesApi,
     private val appDatabase: AppDatabase,
-    private val networkUtil: NetworkUtil
+    private val networkUtil: NetworkUtil,
+    @ApplicationContext private val context: Context
 ) : CountryRepository {
 
     override suspend fun getAllCountriesPreviews(
@@ -34,7 +38,7 @@ class CountryRepositoryImpl @Inject constructor(
 
         if (!networkUtil.isInternetAvailable()) {
             if (localCountries.isEmpty()) {
-                emit(Resource.Error(message = "No internet connection and no local data available"))
+                emit(Resource.Error(message = context.getString(R.string.no_internet_no_data)))
             } else {
                 emit(Resource.Success(data = localCountries))
             }
@@ -58,7 +62,7 @@ class CountryRepositoryImpl @Inject constructor(
             appDatabase.countryDao().upsertCountryList(countriesEntity)
             Resource.Success(data = countriesEntity.map { it.toCountryPreview() })
         } catch (e: Exception) {
-            Resource.Error(message = "Error loading countries")
+            Resource.Error(message = context.getString(R.string.error_loading_countries))
         }
     }
 

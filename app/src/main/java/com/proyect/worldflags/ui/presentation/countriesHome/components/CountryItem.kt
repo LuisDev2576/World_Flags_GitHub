@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.proyect.worldflags.R
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -50,7 +51,7 @@ fun SharedTransitionScope.CountryListItem(
             model = ImageRequest.Builder(context)
                 .data(flag)
                 .build(),
-            contentDescription = "Flag of $name",
+            contentDescription = context.getString(R.string.flag_of_country, name),
             filterQuality = FilterQuality.Medium,
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
@@ -66,8 +67,8 @@ fun SharedTransitionScope.CountryListItem(
                 .clip(RoundedCornerShape(10.dp))
         )
 
-
         Spacer(modifier = Modifier.width(16.dp))
+
         Column(
             verticalArrangement = Arrangement.SpaceBetween
         ) {

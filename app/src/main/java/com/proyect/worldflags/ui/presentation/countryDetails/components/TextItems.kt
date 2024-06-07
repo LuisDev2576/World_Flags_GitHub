@@ -11,10 +11,12 @@ import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun TextItems(
     title: String,
-    subtitle: String
+    subtitle: String?
 ){
     Row {
         Text(text = title, fontWeight = FontWeight.SemiBold, color =  MaterialTheme.colorScheme.onBackground)
-        Text(text = subtitle, color = Color.Gray, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        if (subtitle != null) {
+            Text(text = subtitle, color = Color.Gray, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        }
     }
 }

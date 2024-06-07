@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,6 +51,7 @@ fun SharedTransitionScope.CountryList(
     refresh: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
     val filteredList = countriesListState.countriesList
         .filter { it.commonName.contains(searchText, ignoreCase = true) }
         .sortedByDescending { it.population }
@@ -85,7 +87,7 @@ fun SharedTransitionScope.CountryList(
                     CountryListItem(
                         flag = country.pngFlagUrl,
                         name = country.commonName,
-                        capital = country.capital ?: "No especificado",
+                        capital = country.capital ?: context.getString(R.string.not_specified),
                         onclick = {
                             focusManager.clearFocus()
                             navController.navigate(CountryDetails(country.id))
