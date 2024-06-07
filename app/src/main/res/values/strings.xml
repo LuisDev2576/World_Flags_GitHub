@@ -1,3 +1,50 @@
 <resources>
+
+    <!-- App Information -->
     <string name="app_name">World Flags</string>
+    <string name="app_name_description">App name</string>
+
+    <!-- Errors -->
+    <string name="no_internet_no_data">No internet connection and no local data available</string>
+    <string name="error_loading_countries">Error loading countries</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="invalid_number">Invalid number</string>
+    <string name="country_id_required">countryId is required</string>
+    <string name="country_not_found">Country not found</string>
+    <string name="failed_to_load_country_details">Failed to load country details</string>
+
+    <!-- Network Related -->
+    <string name="no_internet_connection">It looks like you are not connected to the internet</string>
+
+    <!-- Retry -->
+    <string name="taking_too_long">This is taking too long…</string>
+    <string name="retry">Retry</string>
+
+    <!-- Country Details -->
+    <string name="flag_of_country">Flag of %1$s</string>
+    <string name="not_specified">Not specified</string>
+    <string name="population">Population: </string>
+    <string name="area">Area: </string>
+    <string name="region">Region: </string>
+    <string name="capital">Capital: </string>
+    <string name="time_zone">Time zone: </string>
+    <string name="drive_side">Drive side: </string>
+    <string name="km2">Km2</string>
+
+    <!-- Gini Index -->
+    <string name="gini_index_year">Gini index in %1$s: </string>
+    <string name="gini_index_unknown_format">Gini index: Unknown format</string>
+    <string name="gini_index_not_available">Gini index: Not available</string>
+
+    <!-- Search -->
+    <string name="search_country">Search country…</string>
+    <string name="search_icon_description">Search Icon</string>
+
+    <!-- Borders -->
+    <string name="border_countries">Border countries:</string>
+
+    <!-- Navigation -->
+    <string name="back_to_home_button">Back to home button</string>
+
 </resources>
+

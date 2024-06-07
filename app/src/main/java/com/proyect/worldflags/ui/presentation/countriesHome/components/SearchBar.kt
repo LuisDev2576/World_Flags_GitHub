@@ -14,12 +14,14 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.proyect.worldflags.R
 
 @Composable
 fun SearchBar(
@@ -28,6 +30,7 @@ fun SearchBar(
     enabled: Boolean = true
 ) {
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     TextField(
         value = searchText,
@@ -48,8 +51,8 @@ fun SearchBar(
             }
         ),
         shape = RoundedCornerShape(10.dp),
-        placeholder = { Text("Buscar país...") },
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
+        placeholder = { Text(context.getString(R.string.search_country)) },
+        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = context.getString(R.string.search_icon_description)) },
         colors = TextFieldDefaults.colors(
 
             // Text Colors
