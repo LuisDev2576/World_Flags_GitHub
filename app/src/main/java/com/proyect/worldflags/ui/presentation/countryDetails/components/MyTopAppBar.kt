@@ -15,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.proyect.worldflags.R
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -26,6 +28,8 @@ fun SharedTransitionScope.MyTopAppBar(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope
 ){
+    val context = LocalContext.current
+
     CenterAlignedTopAppBar(
         navigationIcon = {
             IconButton(
@@ -33,7 +37,7 @@ fun SharedTransitionScope.MyTopAppBar(
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back to home buttom",
+                    contentDescription = context.getString(R.string.back_to_home_button),
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             }

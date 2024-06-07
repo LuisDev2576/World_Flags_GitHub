@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,11 +25,12 @@ import com.proyect.worldflags.R
 fun CountryListError(
     error: String,
     refresh: () -> Unit
-){
+) {
+    val context = LocalContext.current
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top, horizontalAlignment = Alignment.CenterHorizontally) {
 
         when(error){
-            "Error loading countries"  -> {
+            context.getString(R.string.error_loading_countries) -> {
                 AsyncImage(
                     model = R.drawable.error_sleeping_1,
                     contentDescription = null,
@@ -38,7 +40,7 @@ fun CountryListError(
                     alignment = Alignment.Center,
                 )
                 Text(
-                    text = "Esto está tomando mucho tiempo...",
+                    text = context.getString(R.string.taking_too_long),
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
@@ -51,13 +53,13 @@ fun CountryListError(
                     )
                 ) {
                     Text(
-                        text = "Reintentar",
+                        text = context.getString(R.string.retry),
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )
                 }
             }
-            "No internet connection and no local data available"  -> {
+            context.getString(R.string.no_internet_no_data) -> {
                 AsyncImage(
                     model = R.drawable.error_lamp_robot_1,
                     contentDescription = null,
@@ -67,7 +69,7 @@ fun CountryListError(
                     alignment = Alignment.Center,
                 )
                 Text(
-                    text = "Parece que no tienes conexión a internet",
+                    text = context.getString(R.string.no_internet_connection),
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )

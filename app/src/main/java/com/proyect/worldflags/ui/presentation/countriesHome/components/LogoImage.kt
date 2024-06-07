@@ -7,11 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
+import com.proyect.worldflags.R
 
 @Composable
 fun LogoImage(imageState: AsyncImagePainter.State) {
+
+    val context = LocalContext.current
 
     imageState.painter?.let {
         Image(
@@ -19,7 +23,7 @@ fun LogoImage(imageState: AsyncImagePainter.State) {
                 .padding(bottom = 16.dp)
                 .height(25.dp),
             painter = it,
-            contentDescription = "App name",
+            contentDescription = context.getString(R.string.app_name_description),
             contentScale = ContentScale.FillHeight,
             alignment = Alignment.Center
         )
