@@ -1,8 +1,11 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlin)
     alias(libs.plugins.daggerHilt)
+    alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
 }
 
@@ -54,6 +57,17 @@ android {
     }
 }
 
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
+ktlint {
+    version.set("0.48.0")
+    android.set(true)
+    ignoreFailures.set(false)
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+    }
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -95,11 +109,11 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
-    implementation (libs.coil.svg)
+    implementation(libs.coil.svg)
 
     // Extended Icons
     implementation(libs.androidx.material.icons.extended)
 
     // Multidex
-    implementation (libs.androidx.multidex)
+    implementation(libs.androidx.multidex)
 }

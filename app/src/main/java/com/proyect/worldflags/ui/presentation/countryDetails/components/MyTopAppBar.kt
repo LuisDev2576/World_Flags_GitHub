@@ -27,8 +27,9 @@ fun SharedTransitionScope.MyTopAppBar(
     countryName: String,
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope
-){
+) {
     val context = LocalContext.current
+    val countryNameKey = context.getString(R.string.country_name_key) + countryName
 
     CenterAlignedTopAppBar(
         navigationIcon = {
@@ -50,16 +51,16 @@ fun SharedTransitionScope.MyTopAppBar(
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = modifier
                     .sharedElement(
-                        state = rememberSharedContentState(key = "countryName:/$countryName"),
+                        state = rememberSharedContentState(key = countryNameKey),
                         animatedVisibilityScope = animatedVisibilityScope,
-                        boundsTransform = { _,_->
+                        boundsTransform = { _, _ ->
                             tween(1000)
                         }
                     )
             )
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor =  MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background
         )
     )
 }

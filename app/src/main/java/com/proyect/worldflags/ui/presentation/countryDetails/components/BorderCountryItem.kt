@@ -35,9 +35,10 @@ fun SharedTransitionScope.BorderCountryItem(
     onclick: () -> Unit,
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope
-){
+) {
     val context = LocalContext.current
     val flagDescription = context.getString(R.string.flag_of_country, name)
+    val countryFlagKey = context.getString(R.string.country_flag_key) + flag
 
     Column(
         modifier = modifier
@@ -54,9 +55,9 @@ fun SharedTransitionScope.BorderCountryItem(
             filterQuality = FilterQuality.Medium,
             modifier = Modifier
                 .sharedElement(
-                    state = rememberSharedContentState(key = "countryFlag:/$flag"),
+                    state = rememberSharedContentState(key = countryFlagKey),
                     animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = { _,_->
+                    boundsTransform = { _, _ ->
                         tween(1000)
                     }
                 )

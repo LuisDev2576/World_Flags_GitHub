@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- App Information -->
     <string name="app_name">World Flags</string>
     <string name="app_name_description">App name</string>
@@ -46,5 +46,8 @@
     <!-- Navigation -->
     <string name="back_to_home_button">Back to home button</string>
 
-</resources>
+    <!-- Internal Identifiers -->
+    <string name="country_name_key">countryName:/</string>
+    <string name="country_flag_key">countryFlag:/</string>
 
+</resources>

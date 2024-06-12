@@ -38,7 +38,7 @@ fun SearchBar(
         modifier = Modifier.fillMaxWidth(),
         onValueChange = { onValueChange(it) },
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
+            keyboardType = KeyboardType.Text
         ),
         singleLine = true,
         textStyle = TextStyle(
@@ -52,7 +52,12 @@ fun SearchBar(
         ),
         shape = RoundedCornerShape(10.dp),
         placeholder = { Text(context.getString(R.string.search_country)) },
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = context.getString(R.string.search_icon_description)) },
+        leadingIcon = {
+            Icon(
+                Icons.Filled.Search,
+                contentDescription = context.getString(R.string.search_icon_description)
+            )
+        },
         colors = TextFieldDefaults.colors(
 
             // Text Colors

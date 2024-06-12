@@ -29,31 +29,37 @@ fun SharedTransitionScope.CountryDetailsScreen(
     viewModel: CountryDetailsViewModel = hiltViewModel(),
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
-    val state = viewModel.countryDetailState.collectAsState().value
-
-    when (state) {
-        is CountryDetailsViewModel.CountryDetailState.Loading -> {Box(modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize())}
+    when (val state = viewModel.countryDetailState.collectAsState().value) {
+        is CountryDetailsViewModel.CountryDetailState.Loading -> { Box(
+            modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()
+        ) }
 
         is CountryDetailsViewModel.CountryDetailState.Success -> {
-
             Scaffold(
-                topBar = { MyTopAppBar(onclick = { navController.navigate(CountriesHome) }, countryName = state.country.commonName, animatedVisibilityScope = animatedVisibilityScope) },
+                topBar = {
+                    MyTopAppBar(onclick = {
+                        navController.navigate(CountriesHome)
+                    }, countryName = state.country.commonName, animatedVisibilityScope = animatedVisibilityScope)
+                },
 
                 content = {
                     Column(modifier = Modifier.padding(it).padding(horizontal = 16.dp)) {
-                        FlagImage(contentDescription = state.country.commonName, image = state.country.pngFlagUrl, animatedVisibilityScope = animatedVisibilityScope)
+                        FlagImage(
+                            contentDescription = state.country.commonName,
+                            image = state.country.pngFlagUrl,
+                            animatedVisibilityScope = animatedVisibilityScope
+                        )
                         ItemDetails(country = state.country)
-                        BorderCountries(borderCountries = state.borderCountries, navController = navController, animatedVisibilityScope = animatedVisibilityScope)
+                        BorderCountries(
+                            borderCountries = state.borderCountries,
+                            navController = navController,
+                            animatedVisibilityScope = animatedVisibilityScope
+                        )
                     }
                 }
             )
-
         }
 
         is CountryDetailsViewModel.CountryDetailState.Error -> {}
     }
 }
-
-
-
-

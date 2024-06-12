@@ -12,11 +12,20 @@ import androidx.compose.ui.text.style.TextOverflow
 fun TextItems(
     title: String,
     subtitle: String?
-){
+) {
     Row {
-        Text(text = title, fontWeight = FontWeight.SemiBold, color =  MaterialTheme.colorScheme.onBackground)
+        Text(
+            text = title,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
         if (subtitle != null) {
-            Text(text = subtitle, color = Color.Gray, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = subtitle,
+                color = Color.Gray,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }
