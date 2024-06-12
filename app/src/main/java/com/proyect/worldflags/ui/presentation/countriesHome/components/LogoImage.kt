@@ -14,7 +14,6 @@ import com.proyect.worldflags.R
 
 @Composable
 fun LogoImage(imageState: AsyncImagePainter.State) {
-
     val context = LocalContext.current
 
     imageState.painter?.let {
@@ -28,5 +27,4 @@ fun LogoImage(imageState: AsyncImagePainter.State) {
             alignment = Alignment.Center
         )
     }
-
 }

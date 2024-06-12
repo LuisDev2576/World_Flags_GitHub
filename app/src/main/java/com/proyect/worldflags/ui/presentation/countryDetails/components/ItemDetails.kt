@@ -12,17 +12,28 @@ import com.proyect.worldflags.domain.model.Country
 @Composable
 fun ItemDetails(
     country: Country
-){
+) {
     val context = LocalContext.current
     Spacer(modifier = Modifier.height(16.dp))
 
-    TextItems(title = context.getString(R.string.population), subtitle = formatNumber(country.population.toString(), context))
-    TextItems(title = context.getString(R.string.area), subtitle = "${formatNumber(country.area.toInt().toString(), context)} ${context.getString(R.string.km2)}")
+    TextItems(
+        title = context.getString(R.string.population),
+        subtitle = formatNumber(country.population.toString(), context)
+    )
+    TextItems(
+        title = context.getString(R.string.area),
+        subtitle = "${formatNumber(country.area.toInt().toString(), context)} ${context.getString(
+            R.string.km2
+        )}"
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 
     TextItems(title = context.getString(R.string.region), subtitle = country.region)
-    TextItems(title = context.getString(R.string.capital), subtitle = country.capital ?: context.getString(R.string.not_specified))
+    TextItems(
+        title = context.getString(R.string.capital),
+        subtitle = country.capital ?: context.getString(R.string.not_specified)
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 

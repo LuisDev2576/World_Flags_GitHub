@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Información de la App -->
-    <string name="app_name">World Flags</string>
+    <string name="app_name">Banderas del Mundo</string>
     <string name="app_name_description">Nombre de la app</string>
 
     <!-- Errores -->
@@ -46,5 +45,9 @@
 
     <!-- Navegación -->
     <string name="back_to_home_button">Botón de volver a inicio</string>
+
+    <!-- Identificadores Internos -->
+    <string name="country_name_key">countryName:/</string>
+    <string name="country_flag_key">countryFlag:/</string>
 
 </resources>

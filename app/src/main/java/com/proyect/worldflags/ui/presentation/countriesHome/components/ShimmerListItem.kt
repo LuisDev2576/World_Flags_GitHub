@@ -38,7 +38,7 @@ fun ShimmerListItem(
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
                 modifier = Modifier
@@ -67,12 +67,13 @@ fun Modifier.shimmerEffect(): Modifier = composed {
     }
     val transition = rememberInfiniteTransition(label = "")
     val startOffsetX by transition.animateFloat(
-        initialValue = -1.5f * size.width.toFloat() ,
+        initialValue = -1.5f * size.width.toFloat(),
         targetValue = 1.5f * size.width.toFloat(),
         animationSpec = infiniteRepeatable(
             animation = tween(1500),
             repeatMode = RepeatMode.Reverse
-        ), label = ""
+        ),
+        label = ""
     )
 
     background(
@@ -80,7 +81,7 @@ fun Modifier.shimmerEffect(): Modifier = composed {
             colors = listOf(
                 MaterialTheme.colorScheme.surface,
                 MaterialTheme.colorScheme.surface.copy(0.5f),
-                MaterialTheme.colorScheme.surface,
+                MaterialTheme.colorScheme.surface
             ),
             start = Offset(startOffsetX, 0f),
             end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())

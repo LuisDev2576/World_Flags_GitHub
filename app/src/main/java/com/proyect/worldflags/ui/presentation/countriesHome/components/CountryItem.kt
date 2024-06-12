@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +38,7 @@ fun SharedTransitionScope.CountryListItem(
     onclick: () -> Unit,
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope
-){
+) {
     val context = LocalContext.current
     Row(
         modifier = modifier
@@ -58,7 +57,7 @@ fun SharedTransitionScope.CountryListItem(
                 .sharedElement(
                     state = rememberSharedContentState(key = "countryFlag:/$flag"),
                     animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = { _,_->
+                    boundsTransform = { _, _ ->
                         tween(1000)
                     }
                 )
@@ -80,7 +79,7 @@ fun SharedTransitionScope.CountryListItem(
                     .sharedElement(
                         state = rememberSharedContentState(key = "countryName:/$name"),
                         animatedVisibilityScope = animatedVisibilityScope,
-                        boundsTransform = { _,_->
+                        boundsTransform = { _, _ ->
                             tween(1000)
                         }
                     )
@@ -88,9 +87,4 @@ fun SharedTransitionScope.CountryListItem(
             Text(text = capital, color = Color.Gray)
         }
     }
-
-
 }
-
-
-

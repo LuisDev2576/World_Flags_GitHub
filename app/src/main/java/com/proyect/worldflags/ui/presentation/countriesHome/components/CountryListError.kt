@@ -27,9 +27,12 @@ fun CountryListError(
     refresh: () -> Unit
 ) {
     val context = LocalContext.current
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top, horizontalAlignment = Alignment.CenterHorizontally) {
-
-        when(error){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        when (error) {
             context.getString(R.string.error_loading_countries) -> {
                 AsyncImage(
                     model = R.drawable.error_sleeping_1,
@@ -37,7 +40,7 @@ fun CountryListError(
                     filterQuality = FilterQuality.High,
                     modifier = Modifier
                         .fillMaxWidth(),
-                    alignment = Alignment.Center,
+                    alignment = Alignment.Center
                 )
                 Text(
                     text = context.getString(R.string.taking_too_long),
@@ -66,7 +69,7 @@ fun CountryListError(
                     filterQuality = FilterQuality.High,
                     modifier = Modifier
                         .fillMaxWidth(),
-                    alignment = Alignment.Center,
+                    alignment = Alignment.Center
                 )
                 Text(
                     text = context.getString(R.string.no_internet_connection),
@@ -75,6 +78,5 @@ fun CountryListError(
                 )
             }
         }
-
     }
 }

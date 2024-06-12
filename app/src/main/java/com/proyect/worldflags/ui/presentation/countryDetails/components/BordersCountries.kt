@@ -11,24 +11,33 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.proyect.worldflags.R
 import com.proyect.worldflags.domain.model.CountryPreview
 import com.proyect.worldflags.ui.navigation.CountryDetails
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.BorderCountries(
-    borderCountries:  List<CountryPreview>,
+    borderCountries: List<CountryPreview>,
     navController: NavHostController,
     animatedVisibilityScope: AnimatedVisibilityScope
-){
-    Text(text = "Países en frontera:", fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier, color = MaterialTheme.colorScheme.onBackground)
+) {
+    val context = LocalContext.current
+    Text(
+        text = context.getString(R.string.border_countries),
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center,
+        modifier = Modifier,
+        color = MaterialTheme.colorScheme.onBackground
+    )
 
-    LazyVerticalGrid(columns = GridCells.Fixed(5)){
-        items(borderCountries){ country ->
+    LazyVerticalGrid(columns = GridCells.Fixed(5)) {
+        items(borderCountries) { country ->
             BorderCountryItem(
                 name = country.commonName,
                 flag = country.pngFlagUrl,

@@ -1,6 +1,5 @@
 package com.proyect.worldflags.ui.presentation.countryDetails.components
 
-
 import android.content.Context
 import com.proyect.worldflags.R
 import java.text.NumberFormat
