@@ -9,13 +9,11 @@ import com.proyect.worldflags.domain.usecase.GetCountriesUseCase
 import com.proyect.worldflags.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CountryListHomeViewModel @Inject constructor(
@@ -23,36 +21,33 @@ class CountryListHomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    private val _countriesPreviewsHomeListState = MutableStateFlow(CountriesPreviewsHomeListState())
-    val countriesPreviewsHomeListState = _countriesPreviewsHomeListState.asStateFlow()
+    private val _countriesListState = MutableStateFlow<CountriesListState>(
+        CountriesListState.Loading
+    )
+    val countriesListState: StateFlow<CountriesListState> = _countriesListState.asStateFlow()
 
     init {
         getCountries(false)
     }
 
     fun getCountries(forceFetchFromRemote: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _countriesPreviewsHomeListState.update { it.copy(isLoading = true, error = "") }
-
-            getCountriesUseCase(forceFetchFromRemote).collectLatest { result ->
-                _countriesPreviewsHomeListState.update {
-                    when (result) {
-                        is Resource.Error -> it.copy(error = result.message ?: context.getString(R.string.unknown_error), isLoading = false)
-                        is Resource.Success -> it.copy(
-                            countriesList = (it.countriesList + result.data.orEmpty().shuffled()).distinct(),
-                            isLoading = false,
-                            error = ""
-                        )
-                        is Resource.Loading -> it.copy(isLoading = result.isLoading)
-                    }
+        viewModelScope.launch {
+            _countriesListState.value = CountriesListState.Loading
+            getCountriesUseCase(forceFetchFromRemote).collect { result ->
+                _countriesListState.value = when (result) {
+                    is Resource.Error -> CountriesListState.Error(
+                        result.message ?: context.getString(R.string.unknown_error)
+                    )
+                    is Resource.Success -> CountriesListState.Success(result.data.orEmpty())
+                    is Resource.Loading -> CountriesListState.Loading
                 }
             }
         }
     }
 
-    data class CountriesPreviewsHomeListState(
-        val isLoading: Boolean = false,
-        val error: String = "",
-        val countriesList: List<CountryPreview> = emptyList(),
-    )
+    sealed class CountriesListState {
+        data object Loading : CountriesListState()
+        data class Success(val countries: List<CountryPreview>) : CountriesListState()
+        data class Error(val message: String) : CountriesListState()
+    }
 }

@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -16,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.proyect.worldflags.R
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -26,7 +27,10 @@ fun SharedTransitionScope.FlagImage(
     image: Any?,
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope
-){
+) {
+    val context = LocalContext.current
+    val countryFlagKey = context.getString(R.string.country_flag_key) + image
+
     AsyncImage(
         model = image,
         contentDescription = contentDescription,
@@ -34,9 +38,9 @@ fun SharedTransitionScope.FlagImage(
         filterQuality = FilterQuality.High,
         modifier = modifier
             .sharedElement(
-                state = rememberSharedContentState(key = "countryFlag:/$image"),
+                state = rememberSharedContentState(key = countryFlagKey),
                 animatedVisibilityScope = animatedVisibilityScope,
-                boundsTransform = { _,_->
+                boundsTransform = { _, _ ->
                     tween(1000)
                 }
             )
@@ -44,6 +48,6 @@ fun SharedTransitionScope.FlagImage(
             .heightIn(max = 250.dp)
             .border(1.dp, MaterialTheme.colorScheme.surface, RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(10.dp)),
-        alignment = Alignment.Center,
+        alignment = Alignment.Center
     )
 }

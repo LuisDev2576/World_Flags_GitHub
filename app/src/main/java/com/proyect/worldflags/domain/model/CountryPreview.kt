@@ -8,5 +8,5 @@ data class CountryPreview(
     val commonName: String,
     val capital: String?,
     val population: Long,
-    val pngFlagUrl: String,
+    val pngFlagUrl: String
 )

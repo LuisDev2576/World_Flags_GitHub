@@ -6,21 +6,23 @@ import androidx.room.Room
 import coil.ImageLoader
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.proyect.worldflags.data.remote.CountriesApi
+import com.proyect.worldflags.data.dataSource.CountryDataSourceImpl
 import com.proyect.worldflags.data.local.AppDatabase
+import com.proyect.worldflags.data.local.CountryDao
+import com.proyect.worldflags.data.remote.CountriesApi
+import com.proyect.worldflags.domain.dataSource.CountryDataSource
 import com.proyect.worldflags.util.NetworkUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
-
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -32,6 +34,7 @@ object AppModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
     @Provides
     @Singleton
     fun provideImageLoader(app: Application): ImageLoader {
@@ -86,4 +89,16 @@ object AppModule {
     @Singleton
     fun provideNetworkUtil(context: Context): NetworkUtil = NetworkUtil(context)
 
+    // Nuevas provisiones para CountryDao y CountryDataSource
+    @Provides
+    @Singleton
+    fun provideCountryDao(appDatabase: AppDatabase): CountryDao {
+        return appDatabase.countryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCountryDataSource(countryDao: CountryDao): CountryDataSource {
+        return CountryDataSourceImpl(countryDao)
+    }
 }
