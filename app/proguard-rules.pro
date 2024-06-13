@@ -86,5 +86,17 @@
 -keep class androidx.multidex.** { *; }
 -dontwarn androidx.multidex.**
 
--keep class com.proyect.worldflags.data.remote.response.*
--keep class com.proyect.worldflags.data.mappers.*
+# Keep Gson TypeAdapters
+-keep class * extends com.google.gson.TypeAdapter { *; }
+-keep class * extends com.google.gson.TypeAdapterFactory { *; }
+-keep class * extends com.google.gson.JsonSerializer { *; }
+-keep class * extends com.google.gson.JsonDeserializer { *; }
+
+# Optional: Keep fields annotated with @SerializedName
+-keepclassmembers class ** {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# Keep your data model classes
+-keep class com.proyect.worldflags.data.remote.response** { *; }
+
