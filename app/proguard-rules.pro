@@ -85,3 +85,6 @@
 # ProGuard rules for multidex
 -keep class androidx.multidex.** { *; }
 -dontwarn androidx.multidex.**
+
+-keep class com.proyect.worldflags.data.remote.response.*
+-keep class com.proyect.worldflags.data.mappers.*
